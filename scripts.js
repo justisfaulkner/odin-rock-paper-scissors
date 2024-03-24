@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 playerInput = playerInput.toLowerCase();
             }
 
-            if (playerInput === "rock" || playerInput === "paper" || playerInput === "scissors"){
+            if (playerInput === "rock" || playerInput === "paper" || playerInput === "scissors") {
                 return playerInput;
             } else {
                 alert("Invalid choice, please choose between 'Rock' 'Paper' 'Scissors'");
@@ -76,7 +76,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    alert(playRound(getPlayerChoice(),getComputerChoice()));
+    function playSeries() {
+        let playerScore = 0;
+        let computerScore = 0;
+
+        for (let i = 0; i < 5; i++) {
+            const playerChoice = getPlayerChoice();
+            if (playerChoice === null) {
+                return "Canceled. Please refresh to play again.";
+            }
+            const computerChoice = getComputerChoice();
+            const roundResult = playRound(playerChoice, computerChoice);
+
+            if (roundResult.includes("win")) {
+                playerScore++;
+            } else if (roundResult.includes("lose")) {
+                computerScore++;
+            }
+
+            console.log(`
+                Player choice: ${playerChoice}
+                Computer choice: ${computerChoice}
+                Round ${(i + 1)}: ${roundResult}
+                Player: ${playerScore} to Computer: ${computerScore}
+                `);
+        }
+
+        if (playerScore > computerScore) {
+            return `Player wins ${playerScore} to ${computerScore} | Refresh to play again`
+        } else if (playerScore < computerScore) {
+            return `Player loses ${playerScore} to ${computerScore} | Refresh to play again`
+        } else {
+            return `Draw: ${playerScore} to ${computerScore} | Refresh to play again`
+        }
+    }
+
+    alert(playSeries());
 
 })
 
