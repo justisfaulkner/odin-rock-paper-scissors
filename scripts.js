@@ -18,6 +18,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function getPlayerChoice() {
+        let playerInput;
+        while (true) {
+            playerInput = prompt("Rock, Paper, or Scissors?")
+
+            if (playerInput === "") {
+                return null;
+            } else {
+                playerInput = playerInput.toLowerCase();
+            }
+
+            if (playerInput === "rock" || playerInput === "paper" || playerInput === "scissors"){
+                return playerInput;
+            } else {
+                alert("Invalid choice, please choose between 'Rock' 'Paper' 'Scissors'");
+            }
+        }
+    }
+
     function playRound(playerSelection, ComputerSelection) {
         if (playerSelection === "rock") {
             switch (ComputerSelection) {
@@ -52,10 +71,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 default:
                     return "unknown error"
             }
+        } else {
+            return "Player did not make a selection, please refresh to play."
         }
     }
 
-    console.log(playRound("rock", getComputerChoice()));
+    alert(playRound(getPlayerChoice(),getComputerChoice()));
 
 })
 
